@@ -19,6 +19,8 @@ create_log()
 
 
 def migrate_user(email):
+    logging.info("migrating user %s from accountID: %s to accountID: %s") % (
+        email, fromAccount, toAccount)
     url = '/accounts/%s/users/%s/account' % (fromAccount, email)
     data = {"account_id": toAccount}
     action = 'put'
@@ -31,3 +33,6 @@ def switch_users():
         for row in csv_reader:
             email = row[0]
             migrate_user(email)
+
+
+switch_users()
